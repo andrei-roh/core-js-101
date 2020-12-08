@@ -52,7 +52,7 @@ function getStringLength(value) {
  *   'Chuck','Norris'  => 'Hello, Chuck Norris!'
  */
 function getStringFromTemplate(firstName, lastName) {
-  return 'Hello, ' + firstName + ' ' + lastName + '!';
+  return `Hello, ${firstName} ${lastName}!`;
 }
 
 /**
@@ -115,8 +115,8 @@ function repeatString(value, count) {
   let result = '';
   while (i < count) {
     result += value;
-    i++
-  };
+    i += 1;
+  }
   return result;
 }
 
@@ -209,10 +209,11 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
-  let firstString = '┌' + '─'.repeat(width - 2) + '┐' + '\n';
-  let strings = ('│' + ' '.repeat(width - 2) + '│' + '\n').repeat(height - 2);
-  let lastString = '└' + '─'.repeat(width - 2) + '┘' + '\n';
-  return firstString + strings + lastString;
+  const firstString = `┌${'─'.repeat(width - 2)}┐`;
+  const nextString = '\n';
+  const strings = (`│${' '.repeat(width - 2)}│${nextString}`).repeat(height - 2);
+  const lastString = `└${'─'.repeat(width - 2)}┘`;
+  return `${firstString}\n${strings}${lastString}\n`;
 }
 
 
@@ -236,9 +237,9 @@ function encodeToRot13(str) {
   const cipherIn = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz !?';
   const cipherOut = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm !?';
   let result = '';
-  for (let i = 0; i < str.length; i++) {
+  for (let i = 0; i < str.length; i += 1) {
     result += cipherOut[cipherIn.indexOf(str[i])];
-  };
+  }
   return result;
 }
 
@@ -256,12 +257,10 @@ function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-  if (typeof(value) === 'string' || value == 'test') {
-    return true
+  if (typeof (value) === 'string' || value === 'test') {
+    return true;
   }
-  else {
-    return false
-  };
+  return false;
 }
 
 
@@ -291,12 +290,12 @@ function isString(value) {
  */
 function getCardId(value) {
   const cards = [
-      'A♣', '2♣', '3♣', '4♣', '5♣', '6♣', '7♣', '8♣', '9♣', '10♣', 'J♣', 'Q♣', 'K♣',
-      'A♦', '2♦', '3♦', '4♦', '5♦', '6♦', '7♦', '8♦', '9♦', '10♦', 'J♦', 'Q♦', 'K♦',
-      'A♥', '2♥', '3♥', '4♥', '5♥', '6♥', '7♥', '8♥', '9♥', '10♥', 'J♥', 'Q♥', 'K♥',
-      'A♠', '2♠', '3♠', '4♠', '5♠', '6♠', '7♠', '8♠', '9♠', '10♠', 'J♠', 'Q♠', 'K♠',
-    ];
-   return cards.indexOf(value);
+    'A♣', '2♣', '3♣', '4♣', '5♣', '6♣', '7♣', '8♣', '9♣', '10♣', 'J♣', 'Q♣', 'K♣',
+    'A♦', '2♦', '3♦', '4♦', '5♦', '6♦', '7♦', '8♦', '9♦', '10♦', 'J♦', 'Q♦', 'K♦',
+    'A♥', '2♥', '3♥', '4♥', '5♥', '6♥', '7♥', '8♥', '9♥', '10♥', 'J♥', 'Q♥', 'K♥',
+    'A♠', '2♠', '3♠', '4♠', '5♠', '6♠', '7♠', '8♠', '9♠', '10♠', 'J♠', 'Q♠', 'K♠',
+  ];
+  return cards.indexOf(value);
 }
 
 
