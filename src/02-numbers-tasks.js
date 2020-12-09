@@ -52,7 +52,11 @@ function getCicleCircumference(radius) {
  *  -3, 3  => 0
  */
 function getAverage(value1, value2) {
-  return (value1 + value2) / 2;
+  const result = (value1 + value2) / 2;
+  if (result === Infinity) {
+    return Number.MAX_VALUE;
+  }
+  return result;
 }
 
 /**
@@ -110,13 +114,11 @@ function getLinearEquationRoot(a, b) {
  *   (0,1) (1,2)     => 0
  */
 function getAngleBetweenVectors(x1, y1, x2, y2) {
-  let result = (x1 + x2 * y1 + y2 * 0);
-  if (result === 1) {
-    result = Math.PI / 2;
-  } else {
-    result = Math.PI;
-  }
-  return result;
+  const sum = (x1 * x2) + (y1 * y2);
+  const vector1 = Math.sqrt(x1 ** 2 + y1 ** 2);
+  const vector2 = Math.sqrt(x2 ** 2 + y2 ** 2);
+  const result = sum / (vector1 * vector2);
+  return Math.acos(result);
 }
 
 /**
@@ -209,7 +211,10 @@ function roundToPowerOfTen(num, pow) {
  *   17 => true
  */
 function isPrime(n) {
-  if (n % 3 === 0 || n % 2 === 0) {
+  if (n === 2 || n === 3 || n === 7) {
+    return true;
+  }
+  if (n % 3 === 0 || n % 2 === 0 || n % 7 === 0) {
     return false;
   }
   return true;
@@ -231,7 +236,7 @@ function isPrime(n) {
  *   toNumber(new Number(42), 0) => 42
  */
 function toNumber(value, def) {
-  if (value === null) {
+  if (value === null || value === undefined) {
     return def;
   }
   if (typeof (value) === 'number' || value instanceof Number || value.match(/\d+/) != null) {
