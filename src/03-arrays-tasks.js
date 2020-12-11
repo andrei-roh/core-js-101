@@ -36,11 +36,13 @@ function findElement(arr, value) {
  *    5 => [ 1, 3, 5, 7, 9 ]
  */
 function generateOdds(len) {
-  const arr = [];
-  for (let i = 0; i < len; i += 1) {
-    arr.push(i * 2 + 1);
-  }
-  return arr;
+  // const arr = [];
+  // for (let i = 0; i < len; i += 1) {
+  //   arr.push(i * 2 + 1);
+  // }
+  // return arr;
+  const arr = new Array(len).fill(0);
+  return arr.map((value, i) => i * 2 + 1);
 }
 
 
@@ -73,12 +75,15 @@ function doubleArray(arr) {
  *    [] => []
  */
 function getArrayOfPositives(arr) {
-  const result = [];
-  for (let i = 0; i < arr.length; i += 1) {
-    if (arr[i] > 0) {
-      result.push(arr[i]);
-    }
-  }
+  // const result = [];
+  // for (let i = 0; i < arr.length; i += 1) {
+  //   if (arr[i] > 0) {
+  //     result.push(arr[i]);
+  //   }
+  // }
+  // return result;
+  let result = [];
+  result = arr.filter((element) => element > 0);
   return result;
 }
 
@@ -94,12 +99,15 @@ function getArrayOfPositives(arr) {
  *    [ 'cat, 'dog', 'raccoon' ] => [ 'cat', 'dog', 'raccoon' ]
  */
 function getArrayOfStrings(arr) {
-  const result = [];
-  for (let i = 0; i < arr.length; i += 1) {
-    if (typeof (arr[i]) === 'string') {
-      result.push(arr[i]);
-    }
-  }
+  // const result = [];
+  // for (let i = 0; i < arr.length; i += 1) {
+  //   if (typeof (arr[i]) === 'string') {
+  //     result.push(arr[i]);
+  //   }
+  // }
+  // return result;
+  let result = [];
+  result = arr.filter((element) => typeof (element) === 'string');
   return result;
 }
 
@@ -148,10 +156,13 @@ function getUpperCaseStrings(arr) {
  *    [ 'angular', 'react', 'ember' ] => [ 7, 5, 5 ]
  */
 function getStringsLength(arr) {
-  const result = [];
-  for (let i = 0; i < arr.length; i += 1) {
-    result.push(i);
-  }
+  // const result = [];
+  // for (let i = 0; i < arr.length; i += 1) {
+  //   result.push(arr[i].length);
+  // }
+  // return result;
+  let result = [];
+  result = arr.map((element) => element.length);
   return result;
 }
 
@@ -258,8 +269,11 @@ function toArrayOfSquares(arr) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] => [ 1, 3, 6, 10, 15, 21, 28, 36, 45, 55 ]
  */
 function getMovingSum(arr) {
-  const result = [];
-  arr.reduce((a, b, i) => result[i] === a + b, 0);
+  const result = arr.reduce((sum, value, index) => {
+    const element = index > 0 ? sum[index - 1] : 0;
+    sum.push(element + value);
+    return sum;
+  }, []);
   return result;
 }
 
@@ -275,11 +289,7 @@ function getMovingSum(arr) {
  * [ "a" ] => []
  */
 function getSecondItems(arr) {
-  const result = [];
-  for (let i = 0; i < arr.length - 1; i += 1) {
-    result.push(arr[i + 1]);
-  }
-  return result;
+  return arr.filter((item, index) => index % 2 === 1);
 }
 
 
@@ -324,10 +334,10 @@ function propagateItemsByPositionIndex(arr) {
 function get3TopItems(arr) {
   const result = [];
   arr.sort((a, b) => b - a);
-  for (let i = 0; i < 3; i += 1) {
+  for (let i = 0; i < arr.length; i += 1) {
     result.push(arr[i]);
   }
-  return result;
+  return result.slice(0, 3);
 }
 
 
@@ -347,7 +357,7 @@ function get3TopItems(arr) {
 function getPositivesCount(arr) {
   const result = [];
   for (let i = 0; i < arr.length; i += 1) {
-    if (arr[i] > 0) {
+    if (arr[i] > 0 && arr[i] !== 0 && typeof (arr[i]) !== 'string') {
       result.push(arr[i]);
     }
   }
@@ -405,13 +415,9 @@ function getItemsSum(arr) {
  *  [ null, undefined, NaN, false, 0, '' ]  => 6
  */
 function getFalsyValuesCount(arr) {
-  let result = 0;
-  for (let i = 0; i < arr.length; i += 1) {
-    if (arr[i] === null || arr[i] === undefined || arr[i] === false || arr[i] === 0 || arr[i] === '') {
-      result += 1;
-    }
-  }
-  return result;
+  let result = [];
+  result = arr.filter((element) => Boolean(element));
+  return arr.length - result.length;
 }
 
 /**
